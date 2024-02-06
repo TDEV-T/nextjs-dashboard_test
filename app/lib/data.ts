@@ -16,12 +16,12 @@ export async function fetchRevenue() {
 
   try {
 
-    console.log('Fetching revenue data...');
+    // console.log('Fetching revenue data...');
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
-    console.log('Data fetch completed after 3 seconds.');
+    // console.log('Data fetch completed after 3 seconds.');
 
     return data.rows;
   } catch (error) {
@@ -195,7 +195,7 @@ export async function fetchCustomers() {
 export async function fetchFilteredCustomers(query: string) {
   try {
     noStore();
-    
+
     const data = await sql<CustomersTableType>`
 		SELECT
 		  customers.id,
@@ -234,5 +234,15 @@ export async function getUser(email: string) {
   } catch (error) {
     console.error('Failed to fetch user:', error);
     throw new Error('Failed to fetch user.');
+  }
+}
+
+
+export async function getALLStats() {
+  try{
+    const resp = await fetch(`${process.env.BASEAPI_URL}admin/stats`)
+  }catch(error){
+    console.log(error);
+    throw new Error("Faild to fetch data");
   }
 }
